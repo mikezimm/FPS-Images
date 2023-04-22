@@ -1,0 +1,16 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "version": "1.15.2",
+    "libraryName": "fps-images",
+    "libraryId": "47e40751-f2cf-4566-b857-8fb8adc56e8f",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "fps-images",
+    "solutionShortDescription": "fps-images description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "fps-images-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/fpsImages/FpsImagesWebPart.js",
+          "manifest": "./src/webparts/fpsImages/FpsImagesWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "FpsImagesWebPartStrings": "lib/webparts/fpsImages/loc/{locale}.js"
+  }
+}
