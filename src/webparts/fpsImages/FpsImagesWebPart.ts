@@ -3,6 +3,7 @@ import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
 import {
   IPropertyPaneConfiguration,
+  IPropertyPaneGroup,
   PropertyPaneTextField
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
@@ -11,8 +12,12 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import * as strings from 'FpsImagesWebPartStrings';
 import FpsImages from './components/FpsImages';
 import { IFpsImagesProps } from './components/IFpsImagesProps';
+import { IFPSImageWPStyles } from "./components/IFPSImageWPStyles";
+import { FPSImageStyleGroup } from './components/FPSImageStylesGroup';
 
-export interface IFpsImagesWebPartProps {
+require('./GrayPropPaneAccordions.css');
+
+export interface IFpsImagesWebPartProps extends IFPSImageWPStyles {
   description: string;
 }
 
@@ -21,7 +26,16 @@ export default class FpsImagesWebPart extends BaseClientSideWebPart<IFpsImagesWe
   private _isDarkTheme: boolean = false;
   private _environmentMessage: string = '';
 
+  
+  protected onInit(): Promise<void> {
+    this._environmentMessage = this._getEnvironmentMessage();
+
+    return super.onInit();
+  }
+
   public render(): void {
+
+    const { layout, titlePos, titleWid, imgHeight, imageOverlap, topAdj, rotateArrayStr, rotateMax, topArrayStr, topMax } = this.properties;
     const element: React.ReactElement<IFpsImagesProps> = React.createElement(
       FpsImages,
       {
@@ -29,18 +43,25 @@ export default class FpsImagesWebPart extends BaseClientSideWebPart<IFpsImagesWe
         isDarkTheme: this._isDarkTheme,
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
+        userDisplayName: this.context.pageContext.user.displayName,
+        fpsImageStyles: {
+          layout: layout, // IFPSImageLayout;
+          titlePos: titlePos, // IFPSImageTitlePos; // Default === Bottom
+          titleWid: titleWid, // number; // Default 150px
+          imgHeight: imgHeight, // number;
+          imageOverlap: imageOverlap, // number;
+          topAdj: topAdj, // number; // Needed to provide padding when rotating
+          rotateMax: rotateMax, // number;
+          topMax: topMax, // number;
+          rotateArray: !rotateArrayStr ? [] : rotateArrayStr.split(',').map( ( numb: string)  => { return parseInt( numb, 10 )}), // number[];
+          topArray: !topArrayStr ? [] : topArrayStr.split(',').map( ( numb: string)  => { return parseInt( numb, 10 )}), // number[];
+        }
       }
     );
 
     ReactDom.render(element, this.domElement);
   }
 
-  protected onInit(): Promise<void> {
-    this._environmentMessage = this._getEnvironmentMessage();
-
-    return super.onInit();
-  }
 
   private _getEnvironmentMessage(): string {
     if (!!this.context.sdks.microsoftTeams) { // running in Teams
@@ -77,21 +98,17 @@ export default class FpsImagesWebPart extends BaseClientSideWebPart<IFpsImagesWe
   }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
+
+    const group: IPropertyPaneGroup = FPSImageStyleGroup( this.properties );
+
     return {
       pages: [
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: ``, // strings.PropertyPaneDescription
           },
           groups: [
-            {
-              groupName: strings.BasicGroupName,
-              groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
-                })
-              ]
-            }
+            group
           ]
         }
       ]

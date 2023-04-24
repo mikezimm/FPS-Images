@@ -14,7 +14,7 @@
     left: 4%;
     width: 1400px;
     // height: 253px;
-    height: 270px;
+    height: 320px;
     overflow:hidden;
       margin: 10px ;
     -webkit-box-shadow: 0 8px 6px -6px black;
@@ -27,24 +27,24 @@
   .accordian1 li{
     position: relative;
     display:block;
-    width: 75px;
+    width: 75px;  // This is the space between images
     float: left;
     
     border-left: 1px solid #888;
     -webkit-box-shadow: 0 0 25px 10px rgba(0,0,0,0.5);
     -moz-box-shadow: 0 0 25px 10px rgba(0,0,0,0.5);
     box-shadow: 0 0 25px 10px rgba(0,0,0,0.5);
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
+    transition: all 0.7s;
+    -webkit-transition: all 0.7s;
+    -moz-transition: all 0.7s;
   }
 
   .accordian1 ul:hover li{
-    width: 75px;
+    width: 75px;  // DO NOT KNOW WHAT THIS DOES
   }
 
   .accordian1 ul li:hover{
-    width:250px;
+    width:250px !important; // Visible width of hovered image
   }
 
   .accordian1 li img{
@@ -55,18 +55,31 @@
     background: rgba(0,0,0,0.5);
     position:absolute;
     left:0;
-    bottom:0;
     width:150px;
+  }
+
+  .posTop {
+    top:0;
+  }
+
+  .posBot {
+    bottom:0;
   }
 
   .image_title a{
     position:relative;
-    left:15px;
+    // left:15px;
     display: block;
     color: #fff;
     text-decoration: none;
-    padding:10px;
+    padding:10px 15px;
     font-size:14px;
+
+    // Add ... to Title
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    // margin-right: 15px;
   }
   .ms-rtestate-field p>img,.ms-rte-write,.ms-rtestate-field>img,.ms-rtestate-field a>img,[id$=RichImageField] img{max-width:inherit;width:inherit;height:inherit;float:inherit}
 
