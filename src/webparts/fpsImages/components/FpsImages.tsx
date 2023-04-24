@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from './FpsImages.module.scss';
 import { IFpsImagesProps } from './IFpsImagesProps';
 // import { escape } from '@microsoft/sp-lodash-subset';
-import { MockFPSImageWPStyles, MockImages } from './MockData';
+import { MockImages } from './MockData';
 import { createImageLitems } from "./createImageLitems";
 
 export default class FpsImages extends React.Component<IFpsImagesProps, {}> {
